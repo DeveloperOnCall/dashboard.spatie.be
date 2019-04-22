@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import echo from '../mixins/echo';
-import saveState from 'vue-save-state';
+// import echo from '../mixins/echo';
+// import saveState from 'vue-save-state';
 
 export default {
-    mixins: [echo, saveState],
+    // mixins: [echo, saveState],
 
     data() {
         return {
@@ -21,19 +21,19 @@ export default {
     },
 
     methods: {
-        getEventHandlers() {
-            return {
-                'Dashboard.UpdateAppearance': response => {
-                    this.mode = response.mode;
-                },
-            };
-        },
+        // getEventHandlers() {
+        //     return {
+        //         'Dashboard.UpdateAppearance': response => {
+        //             this.mode = response.mode;
+        //         },
+        //     };
+        // },
 
-        getSaveStateConfig() {
-            return {
-                cacheKey: `dashboard`,
-            };
-        },
+        // getSaveStateConfig() {
+        //     return {
+        //         cacheKey: `dashboard`,
+        //     };
+        // },
     },
 };
 </script>

@@ -50,10 +50,10 @@ export function relativeDate(value) {
 }
 
 export function relativeDateTime(value) {
-    const date = moment(value);
-
+    //const date = moment(value);
+    const date = value;
     if (moment().diff(date, 'days') > 5) {
-        return 'A long long time ago';
+        return 'A long time ago';
     }
 
     if (moment().diff(date, 'days') > 1) {
@@ -90,3 +90,7 @@ export function diffInSeconds(otherMoment) {
 export function formatTime(value) {
     return moment(value, 'X').format('HH:mm');
 }
+
+
+
+

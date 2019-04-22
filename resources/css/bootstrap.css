@@ -13,12 +13,12 @@
     --bg-error: rgb(234, 15, 65);
 
     --text-default-dark: rgba(255, 255, 255, 0.9);
-    --text-dimmed-dark: rgba(255, 255, 255, 0.6);
+    --text-dimmed-dark: rgba(98, 140, 206, 0.6);
     --text-invers-dark: rgba(0, 0, 0, 0.9);
     --text-accent-dark: rgb(255, 172, 51);
 
-    --bg-screen-dark: rgb(27, 27, 27);
-    --bg-tile-dark: rgb(39, 39, 39);
+    --bg-screen-dark: rgb(10, 10, 10);
+    --bg-tile-dark: rgb(25, 36, 53);
     --bg-warn-dark: rgb(143, 86, 0);
     --bg-error-dark: rgb(234, 89, 114);
 

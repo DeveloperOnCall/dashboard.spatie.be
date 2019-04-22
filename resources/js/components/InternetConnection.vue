@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import echo from '../mixins/echo';
+
 import moment from 'moment';
 import Tile from './atoms/Tile';
 
@@ -18,7 +18,7 @@ export default {
         Tile,
     },
 
-    mixins: [echo],
+    // mixins: [echo],
 
     props: ['position'],
 
@@ -39,13 +39,14 @@ export default {
                 this.lastHeartBeatReceivedAt,
                 'seconds'
             );
-
+           //125
             this.offline = lastHeartBeatReceivedSecondsAgo > 125;
         },
 
         getEventHandlers() {
             return {
                 'Dashboard.Heartbeat': () => {
+                    console.log('connection');
                     this.lastHeartBeatReceivedAt = moment();
                 },
             };

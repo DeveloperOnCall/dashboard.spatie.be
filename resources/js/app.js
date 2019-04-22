@@ -1,6 +1,5 @@
 import './bootstrap.js';
 
-import Echo from 'laravel-echo';
 import Vue from 'vue';
 
 import Dashboard from './components/Dashboard';
@@ -33,19 +32,59 @@ new Vue({
     },
 
     created() {
-        let config = {
-            broadcaster: 'pusher',
-            key: window.dashboard.pusherKey,
-            wsHost: window.location.hostname,
-            wsPath: window.dashboard.clientConnectionPath,
-            wsPort: window.dashboard.wsPort,
-            disableStats: true,
-        }
 
-        if (window.dashboard.environment === 'local') {
-            config.wsPort = 6001;
-        }
-
-        this.echo = new Echo(config);
+        // let config = {
+        //     broadcaster: 'socket.io',
+          
+        //     host: window.location.hostname + ':3000',
+    
+        // }
+      
+        // window.echo = new Echo(config);
+        this.featureDetect();
+        this.websocket();
+      
     },
+    methods: {
+        websocket(){
+        //var ws_url = 'wss://ws.hubx.cc:3000/bigone';
+        //var ws_url =  'ws://'+window.location.hostname+':3031/';
+        var ws_url =  'ws://178.128.83.160:3031/';
+        console.log(ws_url);
+     
+        window.ws = new WebSocket(ws_url,'echo-protocol');
+        ws.onopen = function () {  
+          console.warn('[Connecting] Start');
+        };
+
+        ws.onerror = function () {
+          console.warn('[Connecting] False : RE-Connecting');
+        };
+
+        ws.onmessage = function(message) {  
+          try {
+            var json = JSON.parse(message.data);
+            console.log(json);
+          } catch (e) {
+            return;
+          }
+            
+
+        };
+
+
+
+        },
+
+        featureDetect(){
+            var vueTest = ('__defineSetter__' in Object.prototype);
+            var svgTest = !!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGRect;
+            var transitionTest = ('transition' in document.documentElement.style) || ('WebkitTransition' in document.documentElement.style);
+            var WebSocket = window.WebSocket;
+            if(!vueTest&&!svgTest&&!transitionTest&&!WebSocket){
+                alert('browser not support !!');
+            }
+          
+        }
+    }
 });
