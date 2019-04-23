@@ -4,7 +4,7 @@
 
 @javascript(compact('pusherKey', 'clientConnectionPath', 'environment', 'openWeatherMapKey'))
 <div id="dashboard">
-
+   
     <dashboard class="font-sans">
 
        <!--  <twitter :initial-tweets="{{ json_encode($initialTweets) }}" position="a1:a24"></twitter>
@@ -22,7 +22,9 @@
         <team-member name="jef" avatar="{{ gravatar('jef@spatie.be') }}" birthday="1975-03-28" position="d11:d13"></team-member>
         <team-member name="wouter" avatar="{{ gravatar('wouter@spatie.be') }}" birthday="1991-03-15" position="d14:d16"></team-member>
         <team-member name="willem" avatar="{{ gravatar('willem@spatie.be') }}" birthday="1975-09-04" position="d17:d24"></team-member> -->
-       
+  
+        <website position="a1:a6" :lists="['https://traders.fxstockbroker.com','https://www.google.com']"></website>
+
         <statistics position="b1" channel="binance"></statistics>
         <statistics position="b2" channel="bigone"></statistics>          
         <statistics position="b3" channel="poloniex"></statistics>         
@@ -42,11 +44,12 @@
         <statistics position="d5" channel="exmo"></statistics>       
         <statistics position="d6" channel="bitfinex"></statistics> 
        
+        <time-weather position="e1:e4" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
 
-
-        <time-weather position="e1:e6" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
-
-       <!--  <internet-connection position="e1:e6"></internet-connection> -->
+        <internet-connection position="e5:e6"></internet-connection>
+       
+        
+        
        
 
        <!--  <uptime position="d1:d10"></uptime>
@@ -55,17 +58,7 @@
 
         <velo position="e17:e24"></velo> -->
 
+
     </dashboard>
 </div>
-<script type="text/javascript">
-    featureDetect();
-   function featureDetect(){
-        var vueTest = ('__defineSetter__' in Object.prototype);
-        var svgTest = !!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGRect;
-        var transitionTest = ('transition' in document.documentElement.style) || ('WebkitTransition' in document.documentElement.style);
-           
-        alert('vueTest > '+vueTest+'/ svgTest > '+svgTest+'/ transitionTest > '+transitionTest);
-          
-    }
-</script>
 @endsection

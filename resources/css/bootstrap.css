@@ -27,20 +27,7 @@
 }
 
 .dark-mode {
-    --text-default: var(--text-default-dark);
-    --text-dimmed: var(--text-dimmed-dark);
-    --text-invers: var(--text-invers-dark);
-    --text-accent: var(--text-accent-dark);
-
-    --bg-screen: var(--bg-screen-dark);
-    --bg-tile: var(--bg-tile-dark);
-    --bg-warn: var(--bg-warn-dark);
-    --bg-error: var(--bg-error-dark);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-default: var(--text-default-dark);
+        /*--text-default: var(--text-default-dark);
         --text-dimmed: var(--text-dimmed-dark);
         --text-invers: var(--text-invers-dark);
         --text-accent: var(--text-accent-dark);
@@ -48,7 +35,38 @@
         --bg-screen: var(--bg-screen-dark);
         --bg-tile: var(--bg-tile-dark);
         --bg-warn: var(--bg-warn-dark);
-        --bg-error: var(--bg-error-dark);
+        --bg-error: var(--bg-error-dark);*/
+        --text-default: rgba(255, 255, 255, 0.9);
+        --text-dimmed: rgba(98, 140, 206, 0.6);
+        --text-invers: rgba(0, 0, 0, 0.9);
+        --text-accent: rgb(255, 172, 51);
+
+        --bg-screen: rgb(10, 10, 10);
+        --bg-tile: rgb(25, 36, 53);
+        --bg-warn: rgb(143, 86, 0);
+        --bg-error: rgb(234, 89, 114);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /*--text-default: var(--text-default-dark);
+        --text-dimmed: var(--text-dimmed-dark);
+        --text-invers: var(--text-invers-dark);
+        --text-accent: var(--text-accent-dark);
+
+        --bg-screen: var(--bg-screen-dark);
+        --bg-tile: var(--bg-tile-dark);
+        --bg-warn: var(--bg-warn-dark);
+        --bg-error: var(--bg-error-dark);*/
+        --text-default: rgba(255, 255, 255, 0.9);
+        --text-dimmed: rgba(98, 140, 206, 0.6);
+        --text-invers: rgba(0, 0, 0, 0.9);
+        --text-accent: rgb(255, 172, 51);
+
+        --bg-screen: rgb(10, 10, 10);
+        --bg-tile: rgb(25, 36, 53);
+        --bg-warn: rgb(143, 86, 0);
+        --bg-error: rgb(234, 89, 114);
     }
 }
 
@@ -97,4 +115,36 @@ hr {
 img,
 svg {
     vertical-align: middle;
+}
+
+.text-default {
+    color: rgba(0, 0, 0, 0.9) !important;
+}
+.text-dimmed {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+.text-invers {
+    color:rgba(255, 255, 255, 0.9) !important;
+}
+.bg-error {
+    background-color: rgb(234, 15, 65) !important;
+}
+.p-spacing {
+    padding: 0.5rem !important;
+}
+
+.bg-screen {
+    background-color: rgb(240, 240, 240) !important;
+}
+
+.bg-tile {
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.p-padding {
+    padding: 1rem !important;
+}
+
+.markup li {
+    border-color: rgb(240, 240, 240) !important;
 }

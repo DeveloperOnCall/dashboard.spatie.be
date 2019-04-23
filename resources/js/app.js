@@ -13,7 +13,7 @@ import Twitter from './components/Twitter';
 import Uptime from './components/Uptime';
 import Velo from './components/Velo';
 import TileTimer from './components/TileTimer';
-
+import Website from './components/Website';
 new Vue({
     el: '#dashboard',
 
@@ -29,6 +29,7 @@ new Vue({
         Uptime,
         Velo,
         TileTimer,
+        Website,
     },
 
     created() {
@@ -50,8 +51,7 @@ new Vue({
         //var ws_url = 'wss://ws.hubx.cc:3000/bigone';
         //var ws_url =  'ws://'+window.location.hostname+':3031/';
         var ws_url =  'ws://178.128.83.160:3031/';
-        console.log(ws_url);
-     
+       
         window.ws = new WebSocket(ws_url,'echo-protocol');
         ws.onopen = function () {  
           console.warn('[Connecting] Start');
@@ -61,17 +61,7 @@ new Vue({
           console.warn('[Connecting] False : RE-Connecting');
         };
 
-        ws.onmessage = function(message) {  
-          try {
-            var json = JSON.parse(message.data);
-            console.log(json);
-          } catch (e) {
-            return;
-          }
-            
-
-        };
-
+        
 
 
         },

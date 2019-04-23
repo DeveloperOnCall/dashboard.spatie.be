@@ -73,7 +73,7 @@ export function relativeDateTime(value) {
     }
 
     if (moment().diff(date, 'seconds') > 119) {
-        return `${moment().diff(date, 'minutes')} minutes ago`;
+        return `${moment().diff(date, 'minutes')} min ago`;
     }
 
     if (moment().diff(date, 'seconds') >= 60) {

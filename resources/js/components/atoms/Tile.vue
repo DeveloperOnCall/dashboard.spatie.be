@@ -1,6 +1,9 @@
 <template>
     <div :style="tilePosition" class="grid overflow-hidden bg-tile rounded">
-        <div class="absolute pin overflow-hidden p-padding" :class="{ 'filter-fade-tile' : !noFade }"><slot></slot></div>
+       <!--  <div class="absolute pin overflow-hidden p-padding" :class="{ 'filter-fade-tile' : !noFade }">  -->  
+        <div class="pin overflow-hidden p-padding" :class="{ 'filter-fade-tile' : !noFade }" style="position:relative;">          
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -17,13 +20,14 @@ export default {
     },
 
     computed: {
-        tilePosition() {
+        tilePosition() {           
             return `grid-area: ${this.positionToGridAreaNotation(this.position)}`;
         },
     },
 
     methods: {
         positionToGridAreaNotation(position) {
+         
             const [from, to = null] = position.toLowerCase().split(':');
 
             if (from.length < 2 || (to && to.length < 2)) {
@@ -35,7 +39,7 @@ export default {
                 ? `${areaFrom} / ${Number(to.substring(1)) + 1} / ${this.indexInAlphabet(to[0]) +
                       1}`
                 : areaFrom;
-
+          
             return area;
         },
 

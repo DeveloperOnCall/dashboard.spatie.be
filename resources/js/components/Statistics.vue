@@ -1,7 +1,7 @@
 <template>
 
     <tile :position="position">
-    
+
         <div class="grid gap-padding h-full markup">
             <ul class="align-self-center">
 
@@ -32,6 +32,7 @@
 
 
     </tile>
+
 </template>
 
 <script>
@@ -50,7 +51,7 @@ export default {
             githubStars: 0,
             time:moment().format('HH:mm'),
             date:moment(),
-            status:'connect ..',
+            status:'connect',
             offline: false
         };
     },
@@ -88,7 +89,7 @@ export default {
                 'seconds'
             );
            //125
-            this.offline = lastHeartBeatReceivedSecondsAgo > 60;
+            this.offline = lastHeartBeatReceivedSecondsAgo > 30;
             if(this.offline){
                 this.status = relativeDateTime(this.date);
             }
@@ -99,13 +100,13 @@ export default {
         var ws_url =  'wss://ws.hubx.cc:3000/'+this.channel;
         var gb = this;
         var ws = new WebSocket(ws_url,'echo-protocol');
-        ws.onopen = function () {  
-          console.warn('[Connecting] Start');
-        };
+        // ws.onopen = function () {  
+        //   console.warn('[Connecting] Start');
+        // };
 
-        ws.onerror = function () {
-          console.warn('[Connecting] False : RE-Connecting');
-        };
+        // ws.onerror = function () {
+        //   console.warn('[Connecting] False : RE-Connecting');
+        // };
 
         ws.onmessage = function(message) {  
           try {

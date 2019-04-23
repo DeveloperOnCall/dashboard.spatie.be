@@ -4,12 +4,14 @@
     grid-auto-columns: 1fr;
 }
 
-.gap-spacing {
-    grid-gap: var(--tile-spacing);
+.gap-spacing { 
+   /* grid-gap: var(--tile-spacing);*/
+    grid-gap: 0.5rem;
 }
 
 .gap-padding {
-    grid-gap: var(--tile-padding);
+    /*grid-gap: var(--tile-padding);*/
+    grid-gap:  1rem;
 }
 
 .gap-0 {
