@@ -126,9 +126,19 @@ svg {
 .text-invers {
     color:rgba(255, 255, 255, 0.9) !important;
 }
+.text-accent{
+    color:rgba(25, 71, 147, 0.9);
+}
+.text-success{
+    color:rgba(46, 186, 150, 0.9);
+}
+.text-danger{
+    color:rgba(234, 15, 65, 0.9);
+}
 .bg-error {
     background-color: rgb(234, 15, 65) !important;
 }
+
 .p-spacing {
     padding: 0.5rem !important;
 }

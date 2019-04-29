@@ -23,5 +23,6 @@ class VerifyCsrfToken extends BaseVerifier
         '/webhook/github',
         '/pusher/authenticate',
         '/oh-dear-webhooks',
+        '/webhook/github/AngieTenant',
     ];
 }

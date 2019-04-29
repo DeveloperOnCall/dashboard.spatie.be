@@ -5,10 +5,6 @@
         <div class="grid gap-padding h-full markup">
             <ul class="align-self-center">
 
-                <!-- <li>
-                    <span v-html="emoji('✨')" />
-                    <span class="font-bold variant-tabular">{{ formatNumber(githubStars) }}</span>
-                </li> -->
                 <li>
                     <span class="font-bold variant-tabular">{{channel}}</span>
                 </li>
@@ -48,10 +44,9 @@ export default {
 
     data() {
         return {
-            githubStars: 0,
             time:moment().format('HH:mm'),
             date:moment(),
-            status:'connect',
+            status:'wait..',
             offline: false
         };
     },
@@ -62,27 +57,7 @@ export default {
     methods: {
         emoji,
         relativeDateTime,
-        // getEventHandlers() {
-        //     return {
-        //         'Statistics.GitHubTotalsFetched': response => {
-        //             this.githubStars = response.stars;
-        //             this.githubIssues = response.issues;
-        //             this.githubPullRequests = response.pullRequests;
-        //             this.githubContributors = response.contributors;
-        //         },
-
-        //         'Statistics.PackagistTotalsFetched': response => {
-        //             this.packagistTotal = response.total;
-        //             this.packagistMonthly = response.monthly;
-        //         },
-        //     };
-        // },
-
-        // getSaveStateConfig() {
-        //     return {
-        //         cacheKey: 'statistics',
-        //     };
-        // },
+        
         determineConnectionStatus() {
             const lastHeartBeatReceivedSecondsAgo = moment().diff(
                 this.date,
@@ -95,22 +70,13 @@ export default {
             }
         },
         websocket_xhub(){
-        //var ws_url = 'wss://ws.hubx.cc:3000/bigone';
-        //var ws_url =  'ws://'+window.location.hostname+':3031/';
-        var ws_url =  'wss://ws.hubx.cc:3000/'+this.channel;
+      
+        var ws_url =  'wss://wss.hubx.cc:3000/'+this.channel;
         var gb = this;
         var ws = new WebSocket(ws_url,'echo-protocol');
-        // ws.onopen = function () {  
-        //   console.warn('[Connecting] Start');
-        // };
-
-        // ws.onerror = function () {
-        //   console.warn('[Connecting] False : RE-Connecting');
-        // };
-
+      
         ws.onmessage = function(message) {  
           try {
-            // var json = JSON.parse(message.data);
             gb.time = moment().format('HH:mm');
             var now = moment();
             gb.date = now;

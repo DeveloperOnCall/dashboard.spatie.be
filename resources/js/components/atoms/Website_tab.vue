@@ -6,17 +6,29 @@
     <div class="grid gap-padding h-full markup">
     	
     	<span class="font-bold variant-tabular">{{web}}</span> 
-    	<span class="text-sm text-dimmed">{{status}}</span>
-    	<span class="text-sm text-dimmed">{{time}}</span>
-    		
+    	<span class="text-sm text-dimmed">status code : <span :class="{ 'text-danger': !online,'text-success':online }">{{status}}</span> </span>
     	
-    	</ul>
+    	
+    	<div v-if="online">    		
+           <span class="text-sm text-dimmed">{{ time }}</span>
+        </div>
+        <div v-else>   
+        	<div class="flex z-10" style="--bg-tile: transparent" no-fade>  
+            <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg">
+                Failed ({{ time }})
+            </div>
+            </div> 
+        </div>
+
+       
+    	
+    	
     </div>
 
 </template>
 
 <script>
 export default {
-    props: ['web','status','time'],
+    props: ['web','status','time','online'],
 };
 </script>

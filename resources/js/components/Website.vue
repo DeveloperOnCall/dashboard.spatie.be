@@ -1,12 +1,23 @@
 <template>
     <tile :position="position">
+       
+        <div v-if="ws_status">
         <ul class="grid" style="grid-auto-rows: auto;">
             <li class="overflow-hidden pb-4 mb-4 border-b-2 border-screen" v-for="(full_lists, index) in full_lists" :key="index" >
                 
-                <website-tab :web="full_lists.name" :status="full_lists.statusCode" :time="full_lists.time"></website-tab>
+                <website-tab :web="full_lists.name" :status="full_lists.statusCode" :time="full_lists.time" :online="full_lists.status"></website-tab>
 
             </li>
         </ul>
+        </div>
+        <div v-else>
+            <div class="flex z-10" style="--bg-tile: transparent" no-fade>  
+            <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg">
+               WSS: failed
+            </div>
+            </div> 
+        </div>
+
     </tile>
 </template>
 
@@ -31,17 +42,26 @@ export default {
     data() {
         return {
            full_lists : [],
+           ws_status : false,
+           ws:'',
         };
     },
 
     created() {
-       this._set();
-       this.message_webstatus();
-        setInterval(this.request_webstatus, 10000);
+        this.websocket();
+        this._set();
+        this.message_webstatus();
+        setInterval(this.request_webstatus, 30000);
     },
 
     methods: {
-    
+        websocket(){
+      
+        //var ws_url =  'ws://'+window.location.hostname+':3031/';
+        var ws_url =  'ws://178.128.83.160:3031/';
+        this.ws = new WebSocket(ws_url,'echo-protocol');
+     
+        },
         _set(){
             var tmp_lists = this.lists;
             var full_lists = [];
@@ -58,13 +78,13 @@ export default {
         },
         message_webstatus(){
             var gb = this;
-            window.ws.onmessage = function(message) { 
+            this.ws.onmessage = function(message) { 
               try {
                 var json = JSON.parse(message.data);
                
                 if(json.connection){
                     var data = {func:'get_web',data:gb.lists}
-                    window.ws.send(JSON.stringify(data));
+                    gb.ws.send(JSON.stringify(data));
                 }else if(json.func=='get_web'){
                     var tmp_full_lists = gb.full_lists;
 
@@ -87,10 +107,20 @@ export default {
 
             };
 
+            this.ws.onopen = function () {  
+                gb.ws_status = true;
+            };
+
+            this.ws.onerror = function () {
+                gb.ws_status = false;
+            };
+
+        
+
         },
         request_webstatus(){
             var data = {func:'get_web',data:this.lists};
-            window.ws.send(JSON.stringify(data));
+            this.ws.send(JSON.stringify(data));
         }
     },
 

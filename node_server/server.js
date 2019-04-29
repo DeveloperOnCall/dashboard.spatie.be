@@ -3,17 +3,17 @@ const port = 3031;
 const WebSocketServer = require('websocket').server;
 const http = require('http');
 var request = require('request');
-var connection,list,interval_time;
+var connection,list;
 const server = http.createServer(function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
-    response.writeHead(404);
+    //console.log((new Date()) + ' Received request for ' + request.url);
+    response.writehead(400);
     response.end();
 });
 server.listen(port, function() {
   console.log();
   console.log((new Date()) + ' Server is listening on port '+port);
 });
- 
+
 wsServer = new WebSocketServer({
     httpServer: server,
     // You should not use autoAcceptConnections for production
@@ -58,17 +58,39 @@ function call_webStatus(){
 
 }
 
+function call_api(url){
+
+  var timeoutInMilliseconds = 10*1000;
+  var opts = {
+    url: url,
+    timeout: timeoutInMilliseconds
+  };
+
+  request(opts, function (err, res, body) {
+    if (err) {
+      console.dir(err);
+      return;
+    }
+    // console.log(JSON.stringify(res.request.url.href));
+    var data_re =  JSON.parse(res.body.replace('payload=',''));
+
+    connection.sendUTF(JSON.stringify({func:'github',data:data_re,statusCode:res.statusCode}));
+   
+  });
+
+  
+}
+
 wsServer.on('request', function(request) {
     if (!originIsAllowed(request.origin)) {
       // Make sure we only accept requests from an allowed origin
       request.reject();
-      console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
+     //console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
       return;
     }
     
     connection = request.accept('echo-protocol', request.origin);
-    console.log((new Date()) + ' Connection accepted.');
-
+   
     connection.sendUTF(JSON.stringify({connection:true}));
     connection.on('message', function(message) {
         if (message.type === 'utf8') {
@@ -81,13 +103,16 @@ wsServer.on('request', function(request) {
                 list = json.data;
                 call_webStatus();
               break;
+               case 'github' :                
+                call_api(json.data);
+              break;
             }
 
         }
         
     });
     connection.on('close', function(reasonCode, description) {
-        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+        //console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
   
     });
 });

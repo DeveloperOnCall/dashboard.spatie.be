@@ -14,6 +14,8 @@ import Uptime from './components/Uptime';
 import Velo from './components/Velo';
 import TileTimer from './components/TileTimer';
 import Website from './components/Website';
+import Git_angietenant from './components/Git_angietenant';
+
 new Vue({
     el: '#dashboard',
 
@@ -30,6 +32,7 @@ new Vue({
         Velo,
         TileTimer,
         Website,
+        'git-angietenant':Git_angietenant,
     },
 
     created() {
@@ -43,29 +46,8 @@ new Vue({
       
         // window.echo = new Echo(config);
         this.featureDetect();
-        this.websocket();
-      
     },
     methods: {
-        websocket(){
-        //var ws_url = 'wss://ws.hubx.cc:3000/bigone';
-        //var ws_url =  'ws://'+window.location.hostname+':3031/';
-        var ws_url =  'ws://178.128.83.160:3031/';
-       
-        window.ws = new WebSocket(ws_url,'echo-protocol');
-        ws.onopen = function () {  
-          console.warn('[Connecting] Start');
-        };
-
-        ws.onerror = function () {
-          console.warn('[Connecting] False : RE-Connecting');
-        };
-
-        
-
-
-        },
-
         featureDetect(){
             var vueTest = ('__defineSetter__' in Object.prototype);
             var svgTest = !!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGRect;
