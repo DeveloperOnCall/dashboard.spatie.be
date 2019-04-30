@@ -44,6 +44,7 @@
             :createdat="pull_request.createdat"
             :countfile="pull_request.countfile"
             :action="pull_request.action"
+            :link="pull_request.link"
             />
          
         </div>
@@ -126,7 +127,7 @@ export default {
                     var pull_request_count = 0;
                     var open_issues_count = json.data.repository.open_issues_count;
                     var pull_requests = [];
-                    //console.log(json.data);
+                   
                     if(typeof json.data.pull_request !='undefined'){
                         //console.log(json.data.pull_request);
                     
@@ -134,13 +135,14 @@ export default {
                             pull_request_count = 1;
                             open_issues_count = open_issues_count-1;
                             var user = {
-                                src:json.data.pull_request.user.login,
-                                name:json.data.pull_request.user.avatar_url,
+                                src:json.data.pull_request.user.avatar_url,
+                                name:json.data.pull_request.user.login,
                                 title:json.data.pull_request.title,
                                 body:json.data.pull_request.body ,
                                 createdat:relativeDateTime(moment(json.data.pull_request.created_at)) ,
                                 countfile:json.data.pull_request.changed_files ,
                                 action:'pull request',
+                                link:json.data.pull_request.html_url,
                             }
 
                             pull_requests.push(user);
@@ -150,13 +152,14 @@ export default {
                                 pull_request_count = pull_request_count+1;
                                 open_issues_count = open_issues_count-pull_request_count;
                                 var user = {
-                                    src:json.data.pull_request[i].user.login,
-                                    name:json.data.pull_request[i].user.avatar_url,
+                                    src:json.data.pull_request[i].user.avatar_url,
+                                    name:json.data.pull_request[i].user.login,
                                     title:json.data.pull_request[i].title,
                                     body:json.data.pull_request[i].body ,
                                     createdat:relativeDateTime(moment(json.data.pull_request[i].created_at)) ,
                                     countfile:json.data.pull_request[i].changed_files ,
                                     action:'pull request',
+                                    link:json.data.pull_request[i].html_url,
                                 }
 
                                 pull_requests.push(user);
