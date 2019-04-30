@@ -3,7 +3,7 @@ const port = 3031;
 const WebSocketServer = require('websocket').server;
 const http = require('http');
 var request = require('request');
-var connection,list;
+var list;
 const server = http.createServer(function(request, response) {
     //console.log((new Date()) + ' Received request for ' + request.url);
     response.writehead(400);
@@ -29,7 +29,7 @@ function originIsAllowed(origin) {
   return true;
 }
 
-function call_webStatus(){
+function call_webStatus(connection){
  
   for (i = 0; i < list.length; i++) {
 
@@ -41,7 +41,7 @@ function call_webStatus(){
 
   request(opts, function (err, res, body) {
     if (err) {
-      console.dir(err);
+      //console.dir(err);
       return;
     }
     // console.log(JSON.stringify(res.request.url.href));
@@ -58,7 +58,7 @@ function call_webStatus(){
 
 }
 
-function call_api(url){
+function call_api(url,connection){
 
   var timeoutInMilliseconds = 10*1000;
   var opts = {
@@ -68,13 +68,18 @@ function call_api(url){
 
   request(opts, function (err, res, body) {
     if (err) {
-      console.dir(err);
+      //console.dir(err);
       return;
     }
     // console.log(JSON.stringify(res.request.url.href));
-    var data_re =  JSON.parse(res.body.replace('payload=',''));
+    var n = res.body.indexOf("<!DOCTYPE html>");
+    if((res.body!='')&&(n==-1)){
 
-    connection.sendUTF(JSON.stringify({func:'github',data:data_re,statusCode:res.statusCode}));
+      var data_re =  JSON.parse(res.body.replace('payload=',''));
+      //console.log('re');
+      connection.sendUTF(JSON.stringify({func:'github',data:data_re,statusCode:res.statusCode}));
+    
+    }
    
   });
 
@@ -89,7 +94,7 @@ wsServer.on('request', function(request) {
       return;
     }
     
-    connection = request.accept('echo-protocol', request.origin);
+    var connection = request.accept('echo-protocol', request.origin);
    
     connection.sendUTF(JSON.stringify({connection:true}));
     connection.on('message', function(message) {
@@ -101,10 +106,10 @@ wsServer.on('request', function(request) {
             switch(json.func){
               case 'get_web' : 
                 list = json.data;
-                call_webStatus();
+                call_webStatus(connection);
               break;
                case 'github' :                
-                call_api(json.data);
+                call_api(json.data,connection);
               break;
             }
 

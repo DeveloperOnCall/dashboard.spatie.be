@@ -6,7 +6,7 @@
             <ul class="align-self-center">
 
                 <li>
-                    <span class="font-bold variant-tabular">{{channel}}</span>
+                    <span class="font-bold variant-tabular capitalize">{{channel}}</span>
                 </li>
                 <li>
 

@@ -23,8 +23,8 @@
         <team-member name="wouter" avatar="{{ gravatar('wouter@spatie.be') }}" birthday="1991-03-15" position="d14:d16"></team-member>
         <team-member name="willem" avatar="{{ gravatar('willem@spatie.be') }}" birthday="1975-09-04" position="d17:d24"></team-member> -->
   
-       <git-angietenant position="a1:a3" hook="http://dashboard.hubx.cc/api/github/AngieTenant"></git-angietenant>
-
+       <git-angietenant position="a1:a6" hook="http://dashboard.hubx.cc/api/github/AngieTenant"></git-angietenant>
+       
         <statistics position="b1" channel="binance"></statistics>
         <statistics position="b2" channel="bigone"></statistics>          
         <statistics position="b3" channel="poloniex"></statistics>         
@@ -47,7 +47,7 @@
         <time-weather position="e1:e2" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
 
         <!-- <internet-connection position="e5:e6"></internet-connection> -->
-         <website position="e3:e6" :lists="['https://traders.fxstockbroker.com']"></website>
+         <website position="e3:e6" :lists="['https://traders.fxstockbroker.com','http://dev.xhub.trade']"></website>
         
         
        

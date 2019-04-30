@@ -67,7 +67,7 @@ export default {
             var full_lists = [];
             tmp_lists.forEach(function(data) {
 
-                var name_str = data.replace('https://', '').replace('www.', '').replace('.com', '');
+                var name_str = data.replace('https://', '').replace('http://', '').replace('www.', '').replace('.com', '');
 
                 var list = {url:data+'/',status:false,name:name_str,statusCode:0,time:moment().format('HH:mm')};
                 full_lists.push(list);

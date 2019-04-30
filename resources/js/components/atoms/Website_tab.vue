@@ -6,7 +6,13 @@
     <div class="grid gap-padding h-full markup">
     	
     	<span class="font-bold variant-tabular">{{web}}</span> 
-    	<span class="text-sm text-dimmed">status code : <span :class="{ 'text-danger': !online,'text-success':online }">{{status}}</span> </span>
+    	<span class="text-sm text-dimmed">status code : 
+    		<span :class="{ 'text-danger': !online,'text-success':online }">
+    		{{status}}
+    		<span v-if="online"><font-awesome-icon :icon="['fas', 'check']"/></span>
+    		<span v-else><font-awesome-icon :icon="['fas', 'times']"/></span>
+    		</span> 
+    	</span>
     	
     	
     	<div v-if="online">    		
