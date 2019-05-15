@@ -16,11 +16,11 @@ import TileTimer from './components/TileTimer';
 import Website from './components/Website';
 import Git_angietenant from './components/Git_angietenant';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCheck,faTimes,faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheck,faTimes,faExternalLinkAlt,faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faGithubSquare } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faCheck,faTimes,faExternalLinkAlt,faGithubSquare);
+library.add(faCheck,faTimes,faExternalLinkAlt,faGithubSquare,faExclamationCircle);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

@@ -5,7 +5,7 @@
         <ul class="grid" style="grid-auto-rows: auto;">
             <li class="overflow-hidden pb-4 mb-4 border-b-2 border-screen" v-for="(full_lists, index) in full_lists" :key="index" >
                 
-                <website-tab :web="full_lists.name" :status="full_lists.statusCode" :time="full_lists.time" :online="full_lists.status"></website-tab>
+                <website-tab :web="full_lists.name" :status="full_lists.statusCode" :time="full_lists.time" :online="full_lists.status" :url="full_lists.url"></website-tab>
 
             </li>
         </ul>

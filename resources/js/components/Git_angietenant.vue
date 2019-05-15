@@ -127,7 +127,7 @@ export default {
                     var pull_request_count = 0;
                     var open_issues_count = json.data.repository.open_issues_count;
                     var pull_requests = [];
-                   
+                  
                     if(typeof json.data.pull_request !='undefined'){
                         //console.log(json.data.pull_request);
                     

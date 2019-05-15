@@ -20,8 +20,8 @@
         </div>
         <div v-else>   
         	<div class="flex z-10" style="--bg-tile: transparent" no-fade>  
-            <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg">
-                Failed ({{ time }})
+            <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg" v-on:click="open_issue()" style="cursor: pointer;">
+                Failed:{{ time }} (click) 
             </div>
             </div> 
         </div>
@@ -35,6 +35,11 @@
 
 <script>
 export default {
-    props: ['web','status','time','online'],
+    props: ['web','status','time','online','url'],
+    methods: {
+        open_issue(){
+           window.open(this.url);
+        },
+    }
 };
 </script>
