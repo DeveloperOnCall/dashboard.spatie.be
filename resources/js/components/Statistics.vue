@@ -109,16 +109,16 @@ export default {
         ws.onmessage = function(message) {  
           try {
             //"binance 418 I'm a Teapot {\"code\":-1003,\"msg\":\"Way too many requests; IP banned until 1561352375598. Please use the websocket for live updates to avoid bans.\"}"
-            if((message.data.indexOf('Way too many requests; IP banned') > -1)||(message.data=='{}')){
+            if((message.data.indexOf('Way too many requests; IP banned') > -1)){
                 gb.banned_ip = true;
-            }else{
-                gb.banned_ip = false;
-            }
+            }else if(message.data!='{}'){
+
             var json = JSON.parse(message.data);
-            
+
             var dateString = moment(json.datetime).tz(gb.timezone).format('HH:mm');
             var dateString_now = moment().format('HH:mm');
             if(dateString!=dateString_now){
+                gb.banned_ip = false;
                 gb.counttmp = gb.counttmp + 1;
             }else{    
                 gb.counttmp = 0;
@@ -128,6 +128,9 @@ export default {
             var now = moment();
             gb.date = now;
             gb.status = relativeDateTime(now);
+
+
+            }
 
           } catch (e) {
             return;

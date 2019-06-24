@@ -23,34 +23,38 @@
         <team-member name="wouter" avatar="{{ gravatar('wouter@spatie.be') }}" birthday="1991-03-15" position="d14:d16"></team-member>
         <team-member name="willem" avatar="{{ gravatar('willem@spatie.be') }}" birthday="1975-09-04" position="d17:d24"></team-member> -->
   
-       <git-angietenant position="a1:a6" hook="http://dashboard.hubx.cc/api/github/AngieTenant"></git-angietenant>
-       
+       <git-angietenant position="a1:a7" hook="http://dashboard.hubx.cc/api/github/AngieTenant"></git-angietenant>
+        
+        
         <statistics position="b1" channel="binance"></statistics>
         <statistics position="b2" channel="bigone"></statistics>          
         <statistics position="b3" channel="poloniex"></statistics>         
         <statistics position="b4" channel="kraken"></statistics>         
         <statistics position="b5" channel="bitlish"></statistics>         
-        <statistics position="b6" channel="bleutrade"></statistics>          
+        <statistics position="b6" channel="bleutrade"></statistics>
+        <statistics position="b7" channel="binancebook"></statistics>
+
         <statistics position="c1" channel="bittrex"></statistics>         
         <statistics position="c2" channel="bitstamp"></statistics>          
         <statistics position="c3" channel="anybits"></statistics>         
         <statistics position="c4" channel="cex"></statistics>       
         <statistics position="c5" channel="bxinth"></statistics>         
-        <statistics position="c6" channel="btcturk"></statistics>         
+        <statistics position="c6" channel="btcturk"></statistics> 
+        <statistics position="c7" channel="krakenbook"></statistics>
+
         <statistics position="d1" channel="bithumb"></statistics>         
         <statistics position="d2" channel="acx"></statistics>       
         <statistics position="d3" channel="hitbtc2"></statistics>         
         <statistics position="d4" channel="bitsane"></statistics>         
         <statistics position="d5" channel="exmo"></statistics>       
         <statistics position="d6" channel="bitfinex"></statistics>
-        
+        <statistics position="d7" channel="bitmex"></statistics> 
 
-        <time-weather position="e1:e2" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
+        <time-weather position="e1:e3" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
 
         <!-- <internet-connection position="e5:e6"></internet-connection> -->
-        <website position="e3:e5" :lists="['https://traders.fxstockbroker.com','http://dev.xhub.trade']"></website>
+        <website position="e4:e7" :lists="['https://traders.fxstockbroker.com','http://dev.xhub.trade']"></website>
         
-        <statistics position="e6" channel="bitmex"></statistics> 
         
        
 
