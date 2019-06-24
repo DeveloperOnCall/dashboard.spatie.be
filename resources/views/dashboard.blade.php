@@ -42,13 +42,15 @@
         <statistics position="d3" channel="hitbtc2"></statistics>         
         <statistics position="d4" channel="bitsane"></statistics>         
         <statistics position="d5" channel="exmo"></statistics>       
-        <statistics position="d6" channel="bitfinex"></statistics> 
-       
+        <statistics position="d6" channel="bitfinex"></statistics>
+        
+
         <time-weather position="e1:e2" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
 
         <!-- <internet-connection position="e5:e6"></internet-connection> -->
-         <website position="e3:e6" :lists="['https://traders.fxstockbroker.com','http://dev.xhub.trade']"></website>
+        <website position="e3:e5" :lists="['https://traders.fxstockbroker.com','http://dev.xhub.trade']"></website>
         
+        <statistics position="e6" channel="bitmex"></statistics> 
         
        
 

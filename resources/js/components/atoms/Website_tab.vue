@@ -16,7 +16,7 @@
     	
     	
     	<div v-if="online">    		
-           <span class="text-sm text-dimmed">{{ time }}</span>
+           <span class="text-sm text-accent">{{ time }}</span>
         </div>
         <div v-else>   
         	<div class="flex z-10" style="--bg-tile: transparent" no-fade>  

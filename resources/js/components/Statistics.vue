@@ -15,13 +15,26 @@
                             No connection
                         </div>
                     </div>
+
                     <div v-else>
-                        <span class="text-sm text-dimmed">{{ time }}</span>  
+                        <div v-if="nomessage" class="flex z-10" style="--bg-tile: transparent" no-fade>
+                        <div class="px-2 mx-auto font-black text-invers bg-warn rounded-full shadow-lg">
+                            No message
+                        </div>
+                        </div>
+                        <div v-else>
+                        <span class="text-sm text-accent">{{ time }}</span>
+                        </div>
                     </div>
 
-                    <div v-if="counttmp>60">
-                        <span class="text-sm text-dimmed" style="color:rgb(255, 172, 51) !important;"><font-awesome-icon :icon="['fa', 'exclamation-circle']"/> Third party issue</span>
+                    <div v-if="counttmp>3000">
+                        <span class="text-sm text-dimmed" style="color:rgb(255, 172, 51) !important;"><font-awesome-icon :icon="['fa', 'exclamation-circle']"/> Issue Data</span>
                     </div>
+
+                    <div v-else-if="banned_ip">
+                        <span class="text-sm text-dimmed" style="color:rgb(112, 91, 247) !important;"><font-awesome-icon :icon="['fa', 'user-slash']"/> IP Banned</span>
+                    </div>
+
                     <div v-else>           
                         <span class="text-sm text-dimmed">{{ status }}</span>
                     </div>
@@ -53,8 +66,10 @@ export default {
             date:moment(),
             status:'wait..',
             offline: false,
+            nomessage: false,
             timezone:'',
             counttmp:0,
+            banned_ip: false,
         };
     },
     created() {
@@ -71,8 +86,8 @@ export default {
                 'seconds'
             );
            //125
-            this.offline = lastHeartBeatReceivedSecondsAgo > 10;
-            if(this.offline){
+            this.nomessage = lastHeartBeatReceivedSecondsAgo > 10;
+            if(this.nomessage){
                 this.status = relativeDateTime(this.date);
             }
         },
@@ -81,12 +96,26 @@ export default {
         var ws_url =  'wss://wss.hubx.cc:3000/'+this.channel;
         var gb = this;
         this.timezone = moment.tz.guess();
-        var ws = new WebSocket(ws_url,'echo-protocol');
-        
+        var ws = new WebSocket(ws_url);
+        ws.onopen = function() { 
+            gb.offline = false;
+        }
+        ws.onclose = function() { 
+            gb.offline = true;
+        }
+        ws.onerror = function() { 
+            gb.offline = true;
+        }
         ws.onmessage = function(message) {  
           try {
-     
+            //"binance 418 I'm a Teapot {\"code\":-1003,\"msg\":\"Way too many requests; IP banned until 1561352375598. Please use the websocket for live updates to avoid bans.\"}"
+            if((message.data.indexOf('Way too many requests; IP banned') > -1)||(message.data=='{}')){
+                gb.banned_ip = true;
+            }else{
+                gb.banned_ip = false;
+            }
             var json = JSON.parse(message.data);
+            
             var dateString = moment(json.datetime).tz(gb.timezone).format('HH:mm');
             var dateString_now = moment().format('HH:mm');
             if(dateString!=dateString_now){
@@ -99,6 +128,7 @@ export default {
             var now = moment();
             gb.date = now;
             gb.status = relativeDateTime(now);
+
           } catch (e) {
             return;
           }
