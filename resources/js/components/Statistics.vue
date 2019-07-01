@@ -7,6 +7,10 @@
 
                 <li>
                     <span class="font-bold variant-tabular capitalize">{{channel}}</span>
+                    <div v-if="!nomessage && !offline">    
+                        <span class="text-sm text-dimmed">({{speeddata}} / sec.)</span>
+                    </div>
+
                 </li>
                 <li>
 
@@ -70,6 +74,7 @@ export default {
             timezone:'',
             counttmp:0,
             banned_ip: false,
+            speeddata:0,
         };
     },
     created() {
@@ -81,67 +86,125 @@ export default {
         relativeDateTime,
         
         determineConnectionStatus() {
+            this.speeddata = 0;
             const lastHeartBeatReceivedSecondsAgo = moment().diff(
                 this.date,
                 'seconds'
             );
+           
            //125
             this.nomessage = lastHeartBeatReceivedSecondsAgo > 10;
             if(this.nomessage){
                 this.status = relativeDateTime(this.date);
             }
         },
+
         websocket_xhub(){
-      
-        var ws_url =  'wss://wss.hubx.cc:3000/'+this.channel;
-        var gb = this;
-        this.timezone = moment.tz.guess();
-        var ws = new WebSocket(ws_url);
-        ws.onopen = function() { 
-            gb.offline = false;
-        }
-        ws.onclose = function() { 
-            gb.offline = true;
-        }
-        ws.onerror = function() { 
-            gb.offline = true;
-        }
-        ws.onmessage = function(message) {  
-          try {
-            //"binance 418 I'm a Teapot {\"code\":-1003,\"msg\":\"Way too many requests; IP banned until 1561352375598. Please use the websocket for live updates to avoid bans.\"}"
-            if((message.data.indexOf('Way too many requests; IP banned') > -1)){
-                gb.banned_ip = true;
-            }else if(message.data!='{}'){
-
-            var json = JSON.parse(message.data);
-
-            var dateString = moment(json.datetime).tz(gb.timezone).format('HH:mm');
-            var dateString_now = moment().format('HH:mm');
-            if(dateString!=dateString_now){
-                gb.banned_ip = false;
-                gb.counttmp = gb.counttmp + 1;
-            }else{    
-                gb.counttmp = 0;
-            }
+            var gb = this;
+            this.timezone = moment.tz.guess();
+            const xHubStream = require('deepstream.io-client-js');
+           
+            var cn = xHubStream('167.71.200.243:6020');
+            cn.login(function(success){
             
-            gb.time = dateString;
-            var now = moment();
-            gb.date = now;
-            gb.status = relativeDateTime(now);
+              if (success) {
+                
+                cn.event.subscribe(gb.channel, eventCallback);
+              }
 
-
-            }
-
-          } catch (e) {
-            return;
-          }
+            });
             
+            cn.on('error', function( error, event, topic ){
+                gb.offline = true;
+            });
 
-        };
+            function eventCallback(data) {
+                
+               
+               try {
+                //"binance 418 I'm a Teapot {\"code\":-1003,\"msg\":\"Way too many requests; IP banned until 1561352375598. Please use the websocket for live updates to avoid bans.\"}"
+                // if((data.indexOf('Way too many requests; IP banned') > -1)){
+                //     gb.banned_ip = true;
+                // }else if(data!='{}'){
 
+                var json = data;
+                gb.speeddata = gb.speeddata + 1;
+                var dateString = moment(json.datetime).tz(gb.timezone).format('HH:mm');
+               
+                var dateString_now = moment().format('HH:mm');
+                if(dateString!=dateString_now){
+                    gb.banned_ip = false;
+                    gb.counttmp = gb.counttmp + 1;
+                }else{    
+                    gb.counttmp = 0;
+                }
+                
+                gb.time = dateString;
+                var now = moment();
+                gb.date = now;
+                gb.status = relativeDateTime(now);
 
+                return gb.offline = false;
 
+                // }
+
+              } catch (data) {
+                return;
+              }
+            }
         },
+
+        // websocket_xhub(){
+      
+        // var ws_url =  'wss://wss.hubx.cc:3000/'+this.channel;
+        // var gb = this;
+        // this.timezone = moment.tz.guess();
+        // var ws = new WebSocket(ws_url);
+        // ws.onopen = function() { 
+        //     gb.offline = false;
+        // }
+        // ws.onclose = function() { 
+        //     gb.offline = true;
+        // }
+        // ws.onerror = function() { 
+        //     gb.offline = true;
+        // }
+        // ws.onmessage = function(message) {  
+        //   try {
+        //     //"binance 418 I'm a Teapot {\"code\":-1003,\"msg\":\"Way too many requests; IP banned until 1561352375598. Please use the websocket for live updates to avoid bans.\"}"
+        //     if((message.data.indexOf('Way too many requests; IP banned') > -1)){
+        //         gb.banned_ip = true;
+        //     }else if(message.data!='{}'){
+
+        //     var json = JSON.parse(message.data);
+
+        //     var dateString = moment(json.datetime).tz(gb.timezone).format('HH:mm');
+        //     var dateString_now = moment().format('HH:mm');
+        //     if(dateString!=dateString_now){
+        //         gb.banned_ip = false;
+        //         gb.counttmp = gb.counttmp + 1;
+        //     }else{    
+        //         gb.counttmp = 0;
+        //     }
+            
+        //     gb.time = dateString;
+        //     var now = moment();
+        //     gb.date = now;
+        //     gb.status = relativeDateTime(now);
+
+
+        //     }
+
+        //   } catch (e) {
+        //     return;
+        //   }
+            
+
+        // };
+
+
+
+        // },
     },
 };
 </script>
