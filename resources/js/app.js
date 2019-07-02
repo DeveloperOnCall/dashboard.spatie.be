@@ -54,6 +54,7 @@ new Vue({
       
         // window.echo = new Echo(config);
         this.featureDetect();
+
     },
     methods: {
         featureDetect(){
@@ -63,8 +64,29 @@ new Vue({
             var WebSocket = window.WebSocket;
             if(!vueTest&&!svgTest&&!transitionTest&&!WebSocket){
                 alert('browser not support !!');
+            }else{
+                this.WebSocket_core();
             }
           
+        },
+        WebSocket_core(){
+            window.connection_status = false;
+            const xHubStream = require('deepstream.io-client-js');
+           
+            window.connection = xHubStream('wss://wss2.hubx.cc',{ silentDeprecation: true });
+
+            window.connection.login(function(success){
+            
+              if (success) {
+                window.connection_status = true;
+              }
+
+            });
+            
+            window.connection.on('error', function( error, event, topic ){
+                window.connection_status = true;
+            });
+
         }
     }
 });

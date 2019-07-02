@@ -48,7 +48,7 @@
         <statistics position="d4" channel="bitsane"></statistics>         
         <statistics position="d5" channel="exmo"></statistics>       
         <statistics position="d6" channel="bitfinex"></statistics>
-        <statistics position="d7" channel="bitmex"></statistics> 
+        <statistics position="d7" channel="bitmex"></statistics>  
 
         <time-weather position="e1:e3" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
 
