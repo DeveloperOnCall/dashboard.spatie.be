@@ -113,8 +113,6 @@ export default {
                 gb.offline = true;
                 setTimeout(function(){ gb.websocket_xhub(); }, 5000);
               }
-           
-
 
             function eventCallback(data) {
              
