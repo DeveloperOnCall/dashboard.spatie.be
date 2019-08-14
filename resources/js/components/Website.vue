@@ -51,7 +51,7 @@ export default {
         this.websocket();
         this._set();
         this.message_webstatus();
-        setInterval(this.request_webstatus, 30000);
+        setInterval(this.request_webstatus, 60000);
     },
 
     methods: {
