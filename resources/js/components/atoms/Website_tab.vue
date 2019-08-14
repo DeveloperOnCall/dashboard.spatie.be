@@ -16,12 +16,12 @@
     	
     	
     	<div v-if="online">    		
-           <span class="text-sm text-accent">{{ time }}</span>
+           <span class="text-sm text-accent">Alive : {{ time }}</span>
         </div>
         <div v-else>   
         	<div class="flex z-10" style="--bg-tile: transparent" no-fade>  
             <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg" v-on:click="open_issue()" style="cursor: pointer;">
-                Failed:{{ time }} (click) 
+                Dead : {{ time }} (open) 
             </div>
             </div> 
         </div>

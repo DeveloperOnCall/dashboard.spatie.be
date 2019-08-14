@@ -68,8 +68,9 @@ export default {
             tmp_lists.forEach(function(data) {
 
                 var name_str = data.replace('https://', '').replace('http://', '').replace('www.', '').replace('.com', '');
-
-                var list = {url:data+'/',status:false,name:name_str,statusCode:0,time:moment().format('HH:mm')};
+                var name_arr = name_str.split('/');
+             
+                var list = {url:data,status:false,name:name_arr[0],statusCode:0,time:moment().format('HH:mm')};
                 full_lists.push(list);
                
             });
@@ -81,19 +82,24 @@ export default {
             this.ws.onmessage = function(message) { 
               try {
                 var json = JSON.parse(message.data);
-               
+                
                 if(json.connection){
                     var data = {func:'get_web',data:gb.lists}
                     gb.ws.send(JSON.stringify(data));
                 }else if(json.func=='get_web'){
+
                     var tmp_full_lists = gb.full_lists;
 
                     tmp_full_lists.forEach(function(data) {
-                        if(data.url==json.url){
+                        
+                        var n = json.url.indexOf(data.url);
+                       
+                        if(n>-1){
                           
                             data.status = json.status;
                             data.statusCode = json.statusCode;
                             data.time = moment().format('HH:mm');
+
                         }
                     });
 
