@@ -150,7 +150,7 @@ export default {
         //     this.timezone = moment.tz.guess();
         //     const xHubStream = require('deepstream.io-client-js');
            
-        //     var cn = xHubStream('wss://wss2.hubx.cc',{ silentDeprecation: true });
+     
         //     cn.login(function(success){
             
         //       if (success) {
@@ -201,7 +201,7 @@ export default {
 
         // websocket_xhub(){
       
-        // var ws_url =  'wss://wss.hubx.cc:3000/'+this.channel;
+     
         // var gb = this;
         // this.timezone = moment.tz.guess();
         // var ws = new WebSocket(ws_url);

@@ -60,13 +60,14 @@ import { emoji,formatNumber,relativeDateTime} from '../helpers';
 import moment from 'moment';
 import Tile from './atoms/Tile';
 import GitAlert from './atoms/GitAlert';
+import config from '../config.json';
 
 export default {
     components: {
         Tile,
         GitAlert,
     },
-    props: ['position','hook'],
+    props: ['position'],
 
     data() {
         return {
@@ -78,9 +79,11 @@ export default {
             githubbranch:'',
             ws_github:'',
             pull_requests:[],
+            hook:null,
         };
     },
     created() {
+        this.hook = config.repo_hook;
         this.websocket();
         this.message_();
         setInterval(this.request_github, 10000);
@@ -199,9 +202,8 @@ export default {
 
         },
         websocket(){
-        //var ws_url =  'ws://'+window.location.hostname+':3031/';
-        var ws_url =  'ws://178.128.83.160:3031/';
-        this.ws_github = new WebSocket(ws_url,'echo-protocol');
+            
+        this.ws_github = new WebSocket(config.ws,'echo-protocol');
      
         }
     

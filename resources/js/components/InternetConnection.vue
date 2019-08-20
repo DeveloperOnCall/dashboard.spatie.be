@@ -46,7 +46,6 @@ export default {
         getEventHandlers() {
             return {
                 'Dashboard.Heartbeat': () => {
-                    console.log('connection');
                     this.lastHeartBeatReceivedAt = moment();
                 },
             };

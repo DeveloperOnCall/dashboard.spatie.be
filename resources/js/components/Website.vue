@@ -27,6 +27,7 @@ import Tile from './atoms/Tile';
 import Website_tab from './atoms/Website_tab';
 import moment from 'moment';
 import { diffInSeconds } from '../helpers';
+import config from '../config.json';
 
 export default {
     components: {    
@@ -36,7 +37,6 @@ export default {
 
     props: {   
         position: String,
-        lists: Array,
     },
 
     data() {
@@ -44,10 +44,12 @@ export default {
            full_lists : [],
            ws_status : false,
            ws:'',
+           lists:[],
         };
     },
 
     created() {
+        this.lists = config.list;
         this.websocket();
         this._set();
         this.message_webstatus();
@@ -58,8 +60,7 @@ export default {
         websocket(){
       
         //var ws_url =  'ws://'+window.location.hostname+':3031/';
-        var ws_url =  'ws://178.128.83.160:3031/';
-        this.ws = new WebSocket(ws_url,'echo-protocol');
+        this.ws = new WebSocket(config.ws,'echo-protocol');
      
         },
         _set(){

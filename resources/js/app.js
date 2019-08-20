@@ -1,5 +1,5 @@
 import './bootstrap.js';
-
+import config from './config.json';
 import Vue from 'vue';
 
 import Dashboard from './components/Dashboard';
@@ -44,7 +44,6 @@ new Vue({
     },
 
     created() {
-
         // let config = {
         //     broadcaster: 'socket.io',
           
@@ -73,9 +72,9 @@ new Vue({
             window.connection_status = false;
             const xHubStream = require('deepstream.io-client-js');
            
-            window.connection = xHubStream('wss://wss2.hubx.cc',{ silentDeprecation: true });
+            window.connection = xHubStream(config.stream,{ silentDeprecation: true });
 
-            window.connection.login({email: 'email',password: 'pass'},function(success){
+            window.connection.login({email: config.email,password: config.password},function(success){
             
               if (success) {
                 window.connection_status = true;
