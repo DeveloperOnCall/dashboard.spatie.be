@@ -23,8 +23,8 @@
         <team-member name="wouter" avatar="{{ gravatar('wouter@spatie.be') }}" birthday="1991-03-15" position="d14:d16"></team-member>
         <team-member name="willem" avatar="{{ gravatar('willem@spatie.be') }}" birthday="1975-09-04" position="d17:d24"></team-member> -->
        <git-angietenant position="a1:a6"></git-angietenant>
+       
         <statistics position="a7" channel="xhubbook"></statistics>
-        
         <statistics position="b1" channel="bleutradebook"></statistics>
         <statistics position="b2" channel="binancebook"></statistics>          
         <statistics position="b3" channel="krakenbook"></statistics>         
