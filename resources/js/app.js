@@ -75,7 +75,7 @@ new Vue({
            
             window.connection = xHubStream('wss://wss2.hubx.cc',{ silentDeprecation: true });
 
-            window.connection.login({email: 'streamtrader@xhub.trade',password: 'xHu37rad3@stream'},function(success){
+            window.connection.login({email: 'email',password: 'pass'},function(success){
             
               if (success) {
                 window.connection_status = true;
