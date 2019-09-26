@@ -70,8 +70,11 @@ export default {
 
                 var name_str = data.replace('https://', '').replace('http://', '').replace('www.', '').replace('.com', '');
                 var name_arr = name_str.split('/');
-             
-                var list = {url:data,status:false,name:name_arr[0],statusCode:0,time:moment().format('HH:mm')};
+                var name_site = name_arr[0];
+                if(name_site=='wss2.hubx.cc:8080'){
+                    name_site = 'xStream';
+                }
+                var list = {url:data,status:false,name:name_site,statusCode:0,time:moment().format('HH:mm')};
                 full_lists.push(list);
                
             });

@@ -11,7 +11,7 @@
 
 .gap-padding {
     /*grid-gap: var(--tile-padding);*/
-    grid-gap:  1rem;
+    grid-gap:  0.5rem;
 }
 
 .gap-0 {
