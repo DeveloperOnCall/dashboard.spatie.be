@@ -1,6 +1,19 @@
 const port = 3031;
+const mysql = require('mysql');
+const config = require('./config');
+
+const connection_table_schema = mysql.createConnection({
+    host: config.database.AngieTenant.host,
+    user: config.database.AngieTenant.user,
+    password: config.database.AngieTenant.password,
+    database: 'information_schema'
+});
+
+connection_table_schema.connect();
+
 
 const WebSocketServer = require('websocket').server;
+
 const http = require('http');
 var request = require('request');
 var list;
@@ -23,6 +36,16 @@ wsServer = new WebSocketServer({
     // to accept it.
     autoAcceptConnections: false
 });
+
+function getLog(connection){
+
+  connection_table_schema.query('SELECT table_name AS `table`, round(((data_length + index_length) / 1024 / 1024), 2) `mb` , table_rows AS `rows` FROM TABLES WHERE table_schema = "'+config.database.AngieTenant.logDB.main+'" AND table_name in ("'+config.database.AngieTenant.logDB.minutes+'","'+config.database.AngieTenant.logDB.hours+'","'+config.database.AngieTenant.logDB.days+'")', function (error, results, fields) {
+  if (error) throw error;
+    connection.sendUTF(JSON.stringify({func:'logHistory',data:results}));
+  });
+
+
+}
  
 function originIsAllowed(origin) {
   // put logic here to detect whether the specified origin is allowed.
@@ -102,14 +125,16 @@ wsServer.on('request', function(request) {
             // console.log('Received Message: ' + message.utf8Data);
             var json = JSON.parse(message.utf8Data);
             //connection.sendUTF(message.utf8Data);
-
             switch(json.func){
               case 'get_web' : 
                 list = json.data;
                 call_webStatus(connection);
               break;
-               case 'github' :                
+              case 'github' :                
                 call_api(json.data,connection);
+              break;
+              case 'logHistory' :
+                getLog(connection);
               break;
             }
 

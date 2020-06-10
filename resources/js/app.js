@@ -14,6 +14,7 @@ import Uptime from './components/Uptime';
 import Velo from './components/Velo';
 import TileTimer from './components/TileTimer';
 import Website from './components/Website';
+import Log from './components/Log';
 import Git_angietenant from './components/Git_angietenant';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck,faTimes,faExternalLinkAlt,faExclamationCircle,faUserSlash } from '@fortawesome/free-solid-svg-icons';
@@ -40,6 +41,7 @@ new Vue({
         Velo,
         TileTimer,
         Website,
+        Log,
         'git-angietenant':Git_angietenant,
     },
 
