@@ -21,33 +21,38 @@
         <team-member name="jef" avatar="{{ gravatar('jef@spatie.be') }}" birthday="1975-03-28" position="d11:d13"></team-member>
         <team-member name="wouter" avatar="{{ gravatar('wouter@spatie.be') }}" birthday="1991-03-15" position="d14:d16"></team-member>
         <team-member name="willem" avatar="{{ gravatar('willem@spatie.be') }}" birthday="1975-09-04" position="d17:d24"></team-member> -->
-        <git-angietenant position="a1:a7"></git-angietenant>
+        <git-angietenant position="a1:a6"></git-angietenant>
+        <statistics position="a7" channel="binance"></statistics>
+
         <statistics position="b1" channel="xhubbook"></statistics>
         <statistics position="b2" channel="binancebook"></statistics>
         <statistics position="b3" channel="krakenbook"></statistics>
         <statistics position="b4" channel="bitfinexbook"></statistics>
 
-        <log position="b5:b7"></log>
+        <history-log position="b5:b7" type="mysql"></history-log>
 
         <statistics position="c1" channel="bittrexbook"></statistics>
         <statistics position="c2" channel="deribitbook"></statistics>
         <statistics position="c3" channel="okexbook"></statistics>
         <statistics position="c4" channel="hitbtcbook"></statistics>
-        <statistics position="c5" channel="lbankbook"></statistics>
-        <statistics position="c6" channel="coinbaseprobook"></statistics>
-        <statistics position="c7" channel="bleutradebook"></statistics>
+
+        <history-log position="c5:c7" type="mongo"></history-log>
 
         <statistics position="d1" channel="bitstampbook"></statistics>
         <statistics position="d2" channel="bitmexbook"></statistics>
         <statistics position="d3" channel="cexbook"></statistics>
-        <statistics position="d4" channel="binance"></statistics>
-        <statistics position="d5" channel="kraken"></statistics>
-        <statistics position="d6" channel="ftxbook"></statistics>
-        <statistics position="d7" channel="poloniexbook"></statistics>
-           
-        <time-weather position="e1:e2" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
+        <!-- <statistics position="d5" channel="kraken"></statistics> -->
+        <statistics position="d4" channel="ftxbook"></statistics>
+        <statistics position="d5" channel="poloniexbook"></statistics>
 
-        <website position="e3:e7"></website>
+        <time-weather position="d6:d7" date-format="ddd DD/MM" time-zone="Asia/Bangkok" weather-city="Phuket"></time-weather>
+
+        <statistics position="e1" channel="lbankbook"></statistics>
+        <statistics position="e2" channel="coinbaseprobook"></statistics>
+        <statistics position="e3" channel="bleutradebook"></statistics>
+        <statistics position="e4" channel="exmobook"></statistics>
+
+        <website position="e5:e7"></website>
 
 
     </dashboard>

@@ -16,6 +16,8 @@ const WebSocketServer = require('websocket').server;
 
 const http = require('http');
 var request = require('request');
+const fetch = require('node-fetch');
+
 var list;
 const server = http.createServer(function(request, response) {
     //console.log((new Date()) + ' Received request for ' + request.url);
@@ -44,7 +46,22 @@ function getLog(connection){
     connection.sendUTF(JSON.stringify({func:'logHistory',data:results}));
   });
 
+}
 
+function getLogMongoDB(connection){
+
+  fetch('https://market.coss.io/api/history/reportModel', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+  }).then(res =>  res.json())
+
+  .then(function(json){
+        
+        if(json.status){
+          connection.sendUTF(JSON.stringify({func:'logHistoryMongoDB',data:json.data}));
+        }
+
+  });
 }
  
 function originIsAllowed(origin) {
@@ -135,6 +152,9 @@ wsServer.on('request', function(request) {
               break;
               case 'logHistory' :
                 getLog(connection);
+              break;
+              case 'logHistoryMongoDB' :
+                getLogMongoDB(connection);
               break;
             }
 

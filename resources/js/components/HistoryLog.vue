@@ -1,6 +1,12 @@
 <template>
     <tile :position="position">
-       
+        
+        <div class="align-self-center" align="center">
+           
+            <span class="align-self-center font-bold text-mini capitalize"><font-awesome-icon icon="database"/> {{type}}</span>
+           
+        </div>
+
         <div v-if="ws_status">
         <ul class="grid" style="grid-auto-rows: auto;">
             <li class="overflow-hidden pb-4 mb-4 border-b-2 border-screen" v-for="(list, index) in log" :key="index" >
@@ -9,7 +15,7 @@
                     <ul class="align-self-center">
                     <li>
                         <span class="font-bold variant-tabular text-mini">{{list.table}} </span>
-                        <span class="text-dimmed text-mini"> {{list.mb}} MB.  </span>
+                        <span class="text-dimmed text-mini" v-if="type=='mysql'" > {{list.mb}} MB.  </span>
                     </li>
                     <li>
                         <span class="text-dimmed text-mini">last update : {{ log.time }}</span>
@@ -46,6 +52,7 @@ export default {
     },
     props: {   
         position: String,
+        type: String,
     },
 
     data() {
@@ -80,16 +87,31 @@ export default {
                
                 if(json.connection){
                     var data = {func:'logHistory'}
+                    if(gb.type!='mysql'){
+                        var data = {func:'logHistoryMongoDB'};
+                    }
                     gb.ws.send(JSON.stringify(data));
+
                 }else if(json.func=='logHistory'){
                     
                     var tmp_log = json.data;
+                    tmp_log[0].table = 'Days';
+                    tmp_log[1].table = 'Hours';
+                    tmp_log[2].table = 'Minutes';
                     tmp_log.time = moment().format('HH:mm');
 
                     gb.log = tmp_log;
 
+                }else if(json.func=='logHistoryMongoDB'){
+
+                    var tmp_log = [{table:'Days',rows:json.data.Days},{table:'Hours',rows:json.data. Hours},{table:'Minutes',rows:json.data.Minutes}];
+
+                    tmp_log.time = moment().format('HH:mm');
+
+                    gb.log = tmp_log;
 
                 }
+
               } catch (e) {
                 return;
               }
@@ -110,6 +132,9 @@ export default {
         },
         request_webstatus(){
             var data = {func:'logHistory'};
+            if(this.type!='mysql'){
+                var data = {func:'logHistoryMongoDB'};
+            }
             this.ws.send(JSON.stringify(data));
         }
     },

@@ -14,14 +14,14 @@ import Uptime from './components/Uptime';
 import Velo from './components/Velo';
 import TileTimer from './components/TileTimer';
 import Website from './components/Website';
-import Log from './components/Log';
+import HistoryLog from './components/HistoryLog';
 import Git_angietenant from './components/Git_angietenant';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCheck,faTimes,faExternalLinkAlt,faExclamationCircle,faUserSlash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck,faTimes,faExternalLinkAlt,faExclamationCircle,faUserSlash,faDatabase } from '@fortawesome/free-solid-svg-icons';
 import { faGithubSquare } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faCheck,faTimes,faExternalLinkAlt,faGithubSquare,faExclamationCircle,faUserSlash);
+library.add(faCheck,faTimes,faExternalLinkAlt,faGithubSquare,faExclamationCircle,faUserSlash,faDatabase);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
@@ -41,7 +41,7 @@ new Vue({
         Velo,
         TileTimer,
         Website,
-        Log,
+        HistoryLog,
         'git-angietenant':Git_angietenant,
     },
 
