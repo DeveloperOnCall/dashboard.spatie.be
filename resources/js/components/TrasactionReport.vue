@@ -122,8 +122,8 @@ export default {
 
         },
         request_webstatus(){
-            var data = {func:'logWallet'};
-            this.ws.send(JSON.stringify(data));
+            this.ws.send(JSON.stringify({func:'logSweepTransactions'}));
+            this.ws.send(JSON.stringify({func:'logSweepQueue'}));
         }
     },
 
