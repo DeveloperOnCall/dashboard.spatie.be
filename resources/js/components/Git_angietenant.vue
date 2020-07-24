@@ -10,22 +10,22 @@
                     <span class="font-bold variant-tabular">{{gitrespo_name}}</span>
                 </li>
                 <li>
-                    <span class="font-bold variant-tabular">Pull Requests</span>
-                    <span class="font-bold variant-tabular">{{ formatNumber(githubPullRequests) }}</span>
+                    <span class="font-bold variant-tabular text-header">Pull Requests</span>
+                    <span class="font-bold variant-tabular text-header">{{ formatNumber(githubPullRequests) }}</span>
                 </li>
                 <li>
-                    <span class="font-bold variant-tabular">Issues</span>
-                    <span class="font-bold variant-tabular">{{ formatNumber(githubIssues) }}</span>
+                    <span class="font-bold variant-tabular text-header">Issues</span>
+                    <span class="font-bold variant-tabular text-header">{{ formatNumber(githubIssues) }}</span>
                 </li>
                 <li>
-                    <span class="font-bold variant-tabular">Forks</span>
-                    <span class="font-bold variant-tabular">{{ formatNumber(githubForks) }}</span>
+                    <span class="font-bold variant-tabular text-header">Forks</span>
+                    <span class="font-bold variant-tabular text-header">{{ formatNumber(githubForks) }}</span>
                 </li>
                 <li>
-                    <span class="font-bold variant-tabular">Watchers</span>
-                    <span class="font-bold variant-tabular">{{ formatNumber(githubWatchers) }}</span>
+                    <span class="font-bold variant-tabular text-header">Watchers</span>
+                    <span class="font-bold variant-tabular text-header">{{ formatNumber(githubWatchers) }}</span>
                 </li>
-                <li style="font-size: 0.6em;">
+                <li class="text-small">
                     <span>Branch</span>
                     <span class="capitalize" style="color:rgba(33, 116, 208, 0.9);">{{ githubbranch }}</span>
                 </li>
@@ -33,7 +33,7 @@
             </ul>
         </div>
 
-        <div class="grid">
+        <div class="grid gap-padding markup">
          
             <git-alert v-for="(pull_request, index) in pull_requests" 
             :key="index" 

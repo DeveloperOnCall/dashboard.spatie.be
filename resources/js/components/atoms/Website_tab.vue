@@ -5,8 +5,8 @@
     </div> -->
     <div class="grid gap-padding h-full markup">
     	
-    	<span class="font-bold variant-tabular">{{web}}</span> 
-    	<span class="text-sm text-dimmed">status code : 
+    	<span class="font-bold variant-tabular text-header">{{web}}</span> 
+    	<span class="text-small text-dimmed">status code : 
     		<span :class="{ 'text-danger': !online,'text-success':online }">
     		{{status}}
     		<span v-if="online"><font-awesome-icon :icon="['fas', 'check']"/></span>
@@ -16,18 +16,15 @@
     	
     	
     	<div v-if="online">    		
-           <span class="text-sm text-accent">Alive : {{ time }}</span>
+           <span class="text-small text-dimmed">Alive : <span class="text-accent">{{ time }}</span></span>
         </div>
         <div v-else>   
         	<div class="flex z-10" style="--bg-tile: transparent" no-fade>  
-            <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg" v-on:click="open_issue()" style="cursor: pointer;">
+            <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg text-header" v-on:click="open_issue()" style="cursor: pointer;">
                 Dead : {{ time }} (open) 
             </div>
             </div> 
         </div>
-
-       
-    	
     	
     </div>
 

@@ -1,25 +1,15 @@
 <template>
     <tile :position="position">
-        
-        <div class="align-self-center" align="center">
-           
-            <span class="align-self-center font-bold text-header capitalize"><font-awesome-icon icon="database"/> {{type}}</span>
-           
-        </div>
 
         <div v-if="ws_status">
         <ul class="grid" style="grid-auto-rows: auto;">
-            <li class="overflow-hidden pb-4 mb-4 border-b-2 border-screen" v-for="(list, index) in log" :key="index" >
+            <li class="overflow-hidden pb-1 mb-4 border-b-2 border-screen" v-for="(list, index) in log" :key="index" >
                
-               <div class="grid gap-padding h-full markup">
+                <div class="grid gap-padding h-full markup">
                     <ul class="align-self-center">
                     <li style="border-bottom-width: 0px;">
-                        <span class="font-bold variant-tabular text-header">{{list.table}} </span>
-                        <span class="text-small">{{list.rows}} row. </span>
-                    </li>
-                    <li>
-                        <span class="text-dimmed text-time">last update : <span class="text-accent">{{ log.time }}</span></span>
-                        <span class="text-dimmed text-small" v-if="type=='mysql'" > {{list.mb}} MB.  </span>
+                        <span class="font-bold variant-tabular text-header">{{list._id}} </span>
+                        <span class="text-small"> <span class="text-success">{{list.count}}</span> wallet. </span>
                     </li>
                     </ul>
                 </div>
@@ -51,7 +41,6 @@ export default {
     },
     props: {   
         position: String,
-        type: String,
     },
 
     data() {
@@ -85,29 +74,12 @@ export default {
                 var json = JSON.parse(message.data);
                
                 if(json.connection){
-                    var data = {func:'logHistory'}
-                    if(gb.type!='mysql'){
-                        var data = {func:'logHistoryMongoDB'};
-                    }
+                    var data = {func:'logWallet'}
                     gb.ws.send(JSON.stringify(data));
 
-                }else if(json.func=='logHistory'){
+                }else if(json.func=='logWallet'){
                     
-                    var tmp_log = json.data;
-                    tmp_log[0].table = 'Days';
-                    tmp_log[1].table = 'Hours';
-                    tmp_log[2].table = 'Minutes';
-                    tmp_log.time = moment().format('HH:mm');
-
-                    gb.log = tmp_log;
-
-                }else if(json.func=='logHistoryMongoDB'){
-
-                    var tmp_log = [{table:'Days',rows:json.data.Days},{table:'Hours',rows:json.data. Hours},{table:'Minutes',rows:json.data.Minutes}];
-
-                    tmp_log.time = moment().format('HH:mm');
-
-                    gb.log = tmp_log;
+                    gb.log = json.data;
 
                 }
 
@@ -130,10 +102,7 @@ export default {
 
         },
         request_webstatus(){
-            var data = {func:'logHistory'};
-            if(this.type!='mysql'){
-                var data = {func:'logHistoryMongoDB'};
-            }
+            var data = {func:'logWallet'};
             this.ws.send(JSON.stringify(data));
         }
     },

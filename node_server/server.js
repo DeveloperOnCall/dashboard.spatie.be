@@ -48,9 +48,32 @@ function getLog(connection){
 
 }
 
+function getSweepQueue(connection){
+  fetch(config.mongoDB.url+'/api/sweep/list', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+  }).then(res =>  res.json())
+
+  .then(function(json){
+      connection.sendUTF(JSON.stringify({func:'logSweepQueue',data:json.length}));
+  });
+}
+
+function getLastSweepTransactions(connection){
+  fetch(config.mongoDB.url+'/api/sweep/datacenter/list', {
+        method: 'post',
+        body: JSON.stringify({limit:5}),
+        headers: { 'Content-Type': 'application/json' },
+  }).then(res =>  res.json())
+
+  .then(function(json){
+      connection.sendUTF(JSON.stringify({func:'logSweepTransactions',data:json}));
+  });
+}
+
 function getLogMongoDB(connection){
 
-  fetch('https://market.coss.io/api/history/reportModel', {
+  fetch(config.mongoDB.url+'/api/history/reportModel', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
   }).then(res =>  res.json())
@@ -62,6 +85,23 @@ function getLogMongoDB(connection){
         }
 
   });
+}
+
+function getWallet(connection){
+
+  fetch(config.mongoDB.url+'/api/wallet/report', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+  }).then(res =>  res.json())
+
+  .then(function(json){
+        
+        if(json.status){
+          connection.sendUTF(JSON.stringify({func:'logWallet',data:json.data}));
+        }
+
+  });
+
 }
  
 function originIsAllowed(origin) {
@@ -155,6 +195,15 @@ wsServer.on('request', function(request) {
               break;
               case 'logHistoryMongoDB' :
                 getLogMongoDB(connection);
+              break;
+              case 'logWallet' :
+                getWallet(connection);
+              break;
+              case 'logSweepTransactions' :
+                getLastSweepTransactions(connection);
+              break;
+              case 'logSweepQueue' :
+                getSweepQueue(connection);
               break;
             }
 

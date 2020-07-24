@@ -159,6 +159,18 @@ svg {
     border-color: rgb(240, 240, 240) !important;
 }
 
-.text-mini {
+.text-name-channel , .text-header {
     font-size: .8rem;
+}
+
+.text-detail-channel {
+    font-size: .6rem;
+}
+
+.text-small {
+    font-size: .6rem !important;
+}
+
+.text-time {
+    font-size: .5rem;
 }

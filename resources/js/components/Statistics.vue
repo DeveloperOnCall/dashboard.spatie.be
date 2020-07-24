@@ -6,41 +6,41 @@
             <ul class="align-self-center">
 
                 <li>
-                    <span class="font-bold variant-tabular capitalize">{{channel}}</span>
+                    <span class="font-bold variant-tabular capitalize text-name-channel">{{channel}}</span>
                     <div v-if="!nomessage && !offline">    
-                        <span class="text-sm text-dimmed">( {{speeddata}} / sec. )</span>
+                        <span class="text-detail-channel text-dimmed">( <span class="text-success text-header">{{speeddata}}</span> / sec. )</span>
                     </div>
 
                 </li>
                 <li>
 
                     <div v-if="offline" class="flex z-10" style="--bg-tile: transparent" no-fade>
-                        <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg">
+                        <div class="px-2 mx-auto font-black text-invers bg-error rounded-full shadow-lg text-header">
                             No connection
                         </div>
                     </div>
 
                     <div v-else>
                         <div v-if="nomessage" class="flex z-10" style="--bg-tile: transparent" no-fade>
-                        <div class="px-2 mx-auto font-black text-invers bg-warn rounded-full shadow-lg">
+                        <div class="px-2 mx-auto font-black text-invers bg-warn rounded-full shadow-lg text-header">
                             No message
                         </div>
                         </div>
                         <div v-else>
-                        <span class="text-sm text-accent">{{ time }}</span>
+                        <span class="text-detail-channel text-accent">{{ time }}</span>
                         </div>
                     </div>
 
                     <div v-if="counttmp>3000">
-                        <span class="text-sm text-dimmed" style="color:rgb(255, 172, 51) !important;"><font-awesome-icon :icon="['fa', 'exclamation-circle']"/> Issue Data</span>
+                        <span class="text-detail-channel text-dimmed text-header" style="color:rgb(255, 172, 51) !important;"><font-awesome-icon :icon="['fa', 'exclamation-circle']"/> Issue Data</span>
                     </div>
 
                     <div v-else-if="banned_ip">
-                        <span class="text-sm text-dimmed" style="color:rgb(112, 91, 247) !important;"><font-awesome-icon :icon="['fa', 'user-slash']"/> IP Banned</span>
+                        <span class="text-detail-channel text-dimmed text-header" style="color:rgb(112, 91, 247) !important;"><font-awesome-icon :icon="['fa', 'user-slash']"/> IP Banned</span>
                     </div>
 
                     <div v-else>           
-                        <span class="text-sm text-dimmed">{{ status }}</span>
+                        <span class="text-detail-channel text-dimmed text-header">{{ status }}</span>
                     </div>
                 </li>
 
