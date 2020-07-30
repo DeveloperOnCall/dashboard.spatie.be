@@ -62,7 +62,7 @@ function getSweepQueue(connection){
 function getLastSweepTransactions(connection){
   fetch(config.mongoDB.url+'/api/sweep/datacenter/list', {
         method: 'post',
-        body: JSON.stringify({limit:5}),
+        body: JSON.stringify({limit:5,type:'Sweep Process'}),
         headers: { 'Content-Type': 'application/json' },
   }).then(res =>  res.json())
 

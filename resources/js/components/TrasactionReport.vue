@@ -14,7 +14,7 @@
                     <div class="grid gap-padding h-full markup">
                         <ul class="align-self-center">
                         <li style="border-bottom-width: 0px;">
-                            <span class="font-bold variant-tabular"> <span class="text-success text-header">{{list.value}}</span> <span class="text-small">{{list.coin}}</span></span>
+                            <span class="font-bold variant-tabular"> <span class="text-success text-header">+ {{formatPrice(list.value)}}</span> <span class="text-small">{{list.coin}}</span></span>
                             <span class="text-small">{{relativeDateTime(list.created_at)}}</span>
                             <!-- <span class="text-small">{{list.hash}}</span> -->
                         </li>
@@ -124,7 +124,53 @@ export default {
         request_webstatus(){
             this.ws.send(JSON.stringify({func:'logSweepTransactions'}));
             this.ws.send(JSON.stringify({func:'logSweepQueue'}));
-        }
+        },
+        formatPrice(value,full=false){
+
+            if((typeof value != 'undefined')&&(value.toString().indexOf('e')>-1)){ 
+                return value;
+            }else{
+
+                let val = (value/1);
+                let m = -Math.floor( Math.log(val) / Math.log(10) + 1);
+
+                if(isNaN(val)){
+                  return 0;
+                }else{
+
+                  if(val.toString().indexOf('.')==-1){
+
+                    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                  }else{
+
+                      if(!full){
+
+                        if((m>-1)&&(m<6)){
+                          val = val.toFixed(m+2);
+                        }else if(m>6){
+                          val = val.toFixed(6);
+                        }else if(isNaN(m)){
+                          val = val.toFixed(6);
+                        }
+
+                        if(val>1){
+                          val = val.toFixed(2);
+                        }
+
+                      }else{
+                        val = val.toFixed(8)*1;
+                      }
+                      
+                      var val_arr = val.toString().split('.');
+                      return val_arr[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +'.'+val_arr[1];
+                      
+                  }
+
+                }
+                
+            }
+        },
     },
 
     computed: {
